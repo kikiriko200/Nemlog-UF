@@ -11,7 +11,7 @@ $(function(){
     var ttl = $(this).text();
     var lv = this.nodeName.toLowerCase();
     this.id = 'ttl-' + countId;
-    div.append("<dd class='lv_"+lv+"'><a href='#'"+this.id+"'>"+ttl+"</a></dd>");
+    div.append("<dd class='lv_"+lv+"'><a href='#"+this.id+"'>"+ttl+"</a></dd>");
   });
   div.append("<div class='card-footer'><p class='card-footer-item'>&copy; DAFU</p></div>");
   if(countId <= 1){//見出しが2個ない場合表示しない

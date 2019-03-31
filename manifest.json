@@ -4,7 +4,7 @@
   "short_name": "Nemlog TOC",
   "author": "DAFU",
   "description": "閲覧中のNemlog記事の目次を生成します。",
-  "version": "0.1",
+  "version": "0.2",
   "icons": {
     "16":"./icon/icon_16.png",
     "48":"./icon/icon.png",

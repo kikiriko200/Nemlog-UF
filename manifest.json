@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Nemlog TOC Generater Dev",
+  "name": "Nemlog TOC Generater",
   "short_name": "Nemlog TOC",
   "author": "DAFU",
   "description": "閲覧中のNemlog記事の目次を生成します。",

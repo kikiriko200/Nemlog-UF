@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "Nemlog TOC Generater Dev",
+  "short_name": "Nemlog TOC",
+  "author": "DAFU",
+  "description": "閲覧中のNemlog記事の目次を生成します。",
+  "version": "0.1",
+  "icons": {
+    "16":"./icon/icon_16.png",
+    "48":"./icon/icon.png",
+    "128":"./icon/icon_128.png"
+  },
+  "content_scripts": [{
+    "matches" : ["https://nemlog.nem.social/*"],
+    "js": ["jquery.min.js","script.js"],
+    "css": ["toc.min.css"]
+  }],
+  "applications": {
+    "gecko": {
+      "id": "nemlogtoc@dafu.cf"
+    }
+  }
+}

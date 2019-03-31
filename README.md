@@ -2,7 +2,7 @@
 Insert TOC for Nemlog.
 
 ## 更新履歴
-2019/3/31: v0.2 リリース
+2019/3/31: v0.3 リリース
 
 ## 使い方
 インストールするだけで使用出来ます。
@@ -22,6 +22,7 @@ Insert TOC for Nemlog.
 
 ### Firefox
 1. [ストアから追加](https://addons.mozilla.org/ja/firefox/addon/nemlog-toc-generater/)
+(v0.3から公開ページを[こちら](https://addons.mozilla.org/ja/firefox/addon/nemlog-toc-generator/)に変更)
 
 ## ライセンス
 このリポジトリはMITライセンスの下で自由に利用できます。

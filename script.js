@@ -1,4 +1,4 @@
-$(function(){
+$(function(){// 目次挿入
   $("html").css("scroll-behavior","smooth");
   var div = $("<div></div>", {
     addClass: "card blog-toc"
@@ -23,3 +23,56 @@ $(function(){
     $(".blog-body").prepend(div);
   }
 });
+$(function(){//読了時間目安
+  const now = location.href;
+  var count = 0;
+  console.log(now);
+  if(now === 'https://nemlog.nem.social/'){
+    $('.card_outline').each(function(){
+      count ++;
+      var content = $('<span></span>', {
+        addClass: `inv-${count} article-read-time`
+      });
+      content.attr('id', 'read-time'+count);
+      content.prepend('<br>');
+      var there = $(this).find('div.blog-card-content-box');
+      $(there).append(content);
+      var blog = $(this).data('href');
+      $.ajax({
+        url: blog,
+        type: 'GET',
+        dataType: 'text'
+      })
+      .done((data) => {
+        $(data).find('div').each(function(){
+          if($(this).is('.blog-body')){
+            var length = $(this).text().length;
+            var mintime = Math.ceil(length / 500);
+            var maxtime = Math.ceil(length / 1000);
+            var time = maxtime+'～'+mintime;
+            if (mintime === 1){
+              time = '1分未満';
+            }else{
+              time = time+'分';
+            }
+            console.log('URL: '+blog+':'+length+'文字');
+            content.append('<i class="fas fa-hourglass-half"></i>'+time+'('+length+'文字)');
+          }
+        })
+      })
+    })
+  }else if(~now.indexOf('blog') || ~now.indexOf('adventure')){
+    length = $('.blog-body').text().length;
+    mintime = Math.ceil(length / 500);
+    maxtime = Math.ceil(length / 1000);
+    time = maxtime+'～'+mintime;
+    if (mintime === 1){
+      time = '1分未満';
+    }else{
+      time = time+'分';
+    }
+    length = '<p><i class="fas fa-hourglass-half"></i>'+time+'('+length+'文字)</p><br>';
+    console.log(length);
+    $('.m10.mt15').prepend(length);
+  }
+})

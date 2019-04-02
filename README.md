@@ -2,7 +2,9 @@
 Insert TOC for Nemlog.
 
 ## 更新履歴
-2019/3/31: v0.3 リリース
+2019/4/2: v0.4 リリース
+
+追加:Nemlogトップページ・記事ページに読了目安時間を挿入(400字/分～1000字/分を想定)
 
 ## 使い方
 インストールするだけで使用出来ます。
@@ -21,8 +23,7 @@ Insert TOC for Nemlog.
 2. DLしたファイルをその画面にドラッグ＆ドロップする
 
 ### Firefox
-1. [ストアから追加](https://addons.mozilla.org/ja/firefox/addon/nemlog-toc-generater/)
-(v0.3から公開ページを[こちら](https://addons.mozilla.org/ja/firefox/addon/nemlog-toc-generator/)に変更)
+1. [ストアから追加](https://addons.mozilla.org/ja/firefox/addon/nemlog-toc-generator/)
 
 ## ライセンス
 このリポジトリはMITライセンスの下で自由に利用できます。

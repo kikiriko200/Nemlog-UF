@@ -13,17 +13,12 @@ Insert TOC for Nemlog.
 
 ## インストール方法
 
-### Google Chrome
+### Google Chrome,Opera
 
-1. アドレスバーに`chrome://chrome/extensions/`と入力し、拡張機能ページへ
-2. DLしたファイルをその画面にドラッグ＆ドロップする
-
-### Opera
-1. アドレスバーに`chrome://startpage/extensions`と入力し、拡張機能ページへ
-2. DLしたファイルをその画面にドラッグ＆ドロップする
+[ストアから追加](https://chrome.google.com/webstore/detail/nemlog-toc-generator/haicahpadmemfpfmckbhignbjbhdckkj)
 
 ### Firefox
-1. [ストアから追加](https://addons.mozilla.org/ja/firefox/addon/nemlog-toc-generator/)
+[ストアから追加](https://addons.mozilla.org/ja/firefox/addon/nemlog-toc-generator/)
 
 ## ライセンス
 このリポジトリはMITライセンスの下で自由に利用できます。

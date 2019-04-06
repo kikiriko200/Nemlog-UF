@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>設定画面</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/option.min.js"></script>
+</head>
+<body>
+  <p>
+    <b>設定解説</b><br>
+    TOC:記事に目次を挿入します。<br>
+    読了目安時間：読了目安時間を表示します。<br>
+    (通信量が結構増えるのでデフォルトではOFFにしてます)<br>
+    Nemウィジェット：Nem価格ウィジェットを表示します。<br>
+    コメント欄画像表示: コメント欄に画像のURL(imgur/gyazo対応)があった時に、画像に変換して表示します。
+  </p>
+  TOC:
+  <select id="toc">
+    <option value="off">OFF</option>
+    <option value="on" checked>ON</option>
+  </select>
+  <br>
+  読了目安時間：
+  <select id="read-time">
+    <option value="off" checked>OFF</option>
+    <option value="on">ON</option>
+  </select>
+  <br>
+  Nemウィジェット：
+  <select id="price">
+    <option value="off">OFF</option>
+    <option value="on" checked>ON</option>
+  </select>
+  <br>
+  コメント欄画像表示：
+  <select id="comment-img">
+    <option value="off">OFF</option>
+    <option value="on" checked>ON</option>
+  </select>
+  <br>
+  <input class="btn" id="save" type="button" value="保存">
+</body>
+</html>

@@ -76,7 +76,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "read-time"}, function (resp
           $('.m10.mt15').prepend(length);
           $('.rank-card').each(function(){
             $(this).css('max-height','unset');
-            rccb.css({'overflow':'unset','height':'fit-content'});
+            rccb.css({'overflow':'unset','display':'table'});
             var span = $('<span></span>', {
               addClass: `article-read-time`
             });
@@ -105,7 +105,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "read-time"}, function (resp
         }else if( ~now.indexOf('profile') ){
           $('.rank-card').each(function(){
             $(this).css('max-height','unset');
-            rccb.css({'overflow':'unset','height':'fit-content'});
+            rccb.css({'overflow':'unset','display':'table'});
             var span = $('<span></span>', {
               addClass: `article-read-time`
             });

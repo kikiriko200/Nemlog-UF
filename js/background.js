@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.method === 'getItem') {
     sendResponse({
       data: localStorage.getItem(request.key)
-    });
+    })
   }else{
     console.log('No method.');
   }

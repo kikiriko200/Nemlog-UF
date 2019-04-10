@@ -12,7 +12,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
         var width = cB.parent().width()+'px';
         var inner=imgur[i].replace(imgur[i],"<a href='//i.imgur.com/"+filename+"' target='_blank'><img src='//i.imgur.com/"+filename+"' alt='' style='display:block;max-width:"+width+"'></a>");
         console.log('#'+i+':'+inner);
-        $('.has-imgur').eq(i).html(inner);
+        $('.has-imgur').eq(i).append(inner);
       }
     }
 
@@ -31,9 +31,12 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
     }
 
     // Upload Imgur
+    function separate(num){
+      return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    }
     var clientId;
     var upload =
-    '<p>本日の残投稿可能数:<span id="rate-limit"></span>枚<br>サポートされている拡張子:JPG,JPEG,PNG,GIF,BMP</p>'+
+    '<p class="help">本日の残投稿可能数:<span id="rate-limit"></span>枚<br>サポートされている拡張子:JPG,JPEG,PNG,GIF,BMP</p>'+
     '<div class="file is-right is-info has-name mb20">'+
       '<label class="file-label" for="upload-img">'+
         '<input id="upload-img" class="file-input" name="resume" type="file" accept=".jpg,.jpeg,.png,.gif,.bmp">'+
@@ -43,11 +46,11 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
         '</span>'+
         '<span id="file-name" class="file-name" style="max-width: 100%;"></span>'+
       '</label>'+
-    '</div>'
+    '</div>';
     $('#comment-anchor .has-text-right').prepend(upload);
     $.get('https://api.dafu.cf/nemlog/count.txt',function(data){
       var limit = 1250 - data;
-      $('#rate-limit').text(limit);
+      $('#rate-limit').text(separate(limit));
       if(limit <= 0){
         $('#rate-limit').css('color','red');
         $('#file-name').text('制限に達しました。');
@@ -68,17 +71,17 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
         var calc = count % 2;
         console.log('count:'+count+' calc:'+calc);
         if (calc === 0){
-          clientId = 'Client-ID 822495165852723'
+          clientId = 'Client-ID 822495165852723';
         }else if(calc === 1){
-          clientId = 'Client-ID 96cc9613384df75'
+          clientId = 'Client-ID 96cc9613384df75';
         }
       })
       .fail(() => {
-        clientId = 'Client-ID 822495165852723'
+        clientId = 'Client-ID 822495165852723';
         console.log('Failed...');
       })
       .always(() =>{
-        console.log('Imgur ClientId:'+clientId)
+        console.log('Imgur ClientId:'+clientId);
         if (this.files.length > 0) {
           var file = this.files[0];
           var filename = file.name;
@@ -102,7 +105,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
               var value = $('#comment').val();
               // 結果
               $('#comment').val(value + link + '\n');
-              $('#rate-limit').text(limit)
+              $('#rate-limit').text(separate(limit));
               // 初期化
               $('#upload-img').val('');
               $('#file-name').text('');

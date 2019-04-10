@@ -7,40 +7,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="./js/jquery.min.js"></script>
   <script src="./js/option.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
 </head>
 <body>
-  <p>
-    <b>設定解説</b><br>
-    TOC:記事に目次を挿入します。<br>
-    読了目安時間：読了目安時間を表示します。<br>
-    (通信量が結構増えるのでデフォルトではOFFにしてます)<br>
-    Nemウィジェット：Nem価格ウィジェットを表示します。<br>
-    コメント欄画像表示: コメント欄に画像のURL(imgur/gyazo対応)があった時に、画像に変換して表示します。
-  </p>
-  TOC:
-  <select id="toc">
-    <option value="off">OFF</option>
-    <option value="on" checked>ON</option>
-  </select>
-  <br>
-  読了目安時間：
-  <select id="read-time">
-    <option value="off" checked>OFF</option>
-    <option value="on">ON</option>
-  </select>
-  <br>
-  Nemウィジェット：
-  <select id="price">
-    <option value="off">OFF</option>
-    <option value="on" checked>ON</option>
-  </select>
-  <br>
-  コメント欄画像表示：
-  <select id="comment-img">
-    <option value="off">OFF</option>
-    <option value="on" checked>ON</option>
-  </select>
-  <br>
-  <input class="btn" id="save" type="button" value="保存">
+  <section class="has-background-info">
+    <div class="container">
+      <h1 class="title has-text-white">設定画面</h1>
+      <div class="box has-text-centered" id="setting">
+        <h2 class="title is-3">設定</h2>
+        <nav class="level">
+          <div class="level-item has-text-centered">
+            <div class="field">
+              <label class="label">TOC</label>
+              <div class="select">
+                <select id="toc">
+                  <option value="off">OFF</option>
+                  <option value="on" checked>ON</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div class="field">
+              <label class="label">読了目安時間</label>
+              <div class="select">
+                <select id="read-time">
+                  <option value="off" checked>OFF</option>
+                  <option value="on">ON</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div class="field">
+              <label class="label">Nemウィジェット</label>
+              <div class="select">
+                <select id="price">
+                  <option value="off">OFF</option>
+                  <option value="on" checked>ON</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div class="field">
+              <label class="label">コメント欄画像表示</label>
+              <div class="select">
+                <select id="comment-img">
+                  <option value="off">OFF</option>
+                  <option value="on" checked>ON</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <input class="button is-success" id="save" type="button" value="保存">
+      </div>
+      <div class="box">
+        <h2 class="title is-2">項目について</h2>
+        <h3 class="title is-3">TOC</h3>
+        <p>記事に目次を挿入する機能です。以下のように挿入されます。</p>
+        <img src="https://i.gyazo.com/6b54e3cf57969fd2cc3d38578a54bca5.png" loading="lazy" alt="">
+        <h3 class="title is-3">読了目安時間</h3>
+        <p>読了目安時間を表示します。</p>
+        <div class="notification is-warning">
+          <p>この機能をオンにすると通信量が増加するため、デフォルトではオフになっています。</p>
+        </div>
+        <p>表示イメージ</p>
+        <img src="https://i.gyazo.com/40a56ee12a4ea8fe0222577bd9abfe4a.png" loading="lazy" alt="">
+        <h3 class="title is-3">Nem価格ウィジェット</h3>
+        <p>CoingeckoのNEMウィジェットを表示します。</p>
+        <p>表示イメージ</p>
+        <img src="https://i.gyazo.com/40a56ee12a4ea8fe0222577bd9abfe4a.png" loading="lazy" alt="">
+        <h3 class="title is-3">コメント欄画像表示/投稿</h3>
+        <p>コメント欄に画像のURLを投稿すると、自動で画像に変換して表示します。<br>現在対応しているのは、GyazoとImgurです。</p>
+        <p>また、コメント投稿時に画像を投稿することが出来ます。<br>こちらは利用しているサービスの制限上、1250枚/日という上限が存在します。<br>なお、この上限は<b>拡張機能の利用者全体で共有されます</b>ので、ご注意ください。</p>
+        <p>表示イメージ</p>
+        <img src="https://i.gyazo.com/07cf93f4c801f44015cb5e491ee7e86e.png" loading="lazy" alt="">
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>This Extension</strong> by <a href="https://github.com/kikiriko200">DAFU</a>. The source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.<br>
+        Github Repo is <a href="https://github.com/kikiriko200/Nemlog-TOC">Here</a>.
+      </p>
+    </div>
+  </footer>
 </body>
 </html>

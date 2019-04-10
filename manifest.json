@@ -21,7 +21,7 @@
   },
   "options_ui": {
     "page": "./option.html",
-    "chrome_style": true
+    "open_in_tab": true
   },
   "applications": {
     "gecko": {

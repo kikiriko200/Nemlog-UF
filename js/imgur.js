@@ -5,14 +5,14 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
     // Imgur
     var imgur = /(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
     imgur = cB.text().match(imgur);
+    const width = cB.parent().width()+'px';
     if(imgur){
       $('.comment_box:contains("imgur")').addClass("has-imgur");
       for (var i=0; i<imgur.length; ++i){
-        var filename=imgur[i].replace(/(http(s):)\/\/i\.imgur\.com\//, "");
-        var width = cB.parent().width()+'px';
-        var inner=imgur[i].replace(imgur[i],"<a href='//i.imgur.com/"+filename+"' target='_blank'><img src='//i.imgur.com/"+filename+"' alt='' style='display:block;max-width:"+width+"'></a>");
-        console.log('#'+i+':'+inner);
-        $('.has-imgur').eq(i).append(inner);
+        //const imgurFile=imgur[i].replace(/(http(s):)\/\/i\.imgur\.com\//, "");
+        const imgurInner=imgur[i].replace(imgur[i],"<a href='"+imgur[i]+"' target='_blank'><img src='"+imgur[i]+"' alt='"+imgur[i]+"' style='display:block;max-width:"+width+"'></a>");
+        console.log('#'+i+':'+imgurInner);
+        $('.has-imgur').eq(i).append(imgurInner);
       }
     }
 
@@ -22,18 +22,13 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
     if(gyazo){
       $('.comment_box:contains("gyazo")').addClass("has-gyazo");
       for (var i=0; i<gyazo.length; ++i){
-        var filename=gyazo[i].replace(/(http:|https:)\/\/i\.gyazo\.com\//, "");
-        var width = cB.parent().width()+'px';
-        var inner=gyazo[i].replace(gyazo[i],"<a href='//i.gyazo.com/"+filename+"' target='_blank'><img src='//i.gyazo.com/"+filename+"' alt='' style='display:block;max-width:"+width+"'></a>");
-        console.log('#'+i+':'+inner);
-        $('.has-gyazo').eq(i).append(inner);
+        const gyazoInner=gyazo[i].replace(gyazo[i],"<a href='"+gyazo[i]+"' target='_blank'><img src='"+gyazo[i]+"' alt='"+gyazo[i]+"' style='display:block;max-width:"+width+"'></a>");
+        console.log('#'+i+':'+gyazoInner);
+        $('.has-gyazo').eq(i).append(gyazoInner);
       }
     }
 
     // Upload Imgur
-    function separate(num){
-      return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-    }
     var clientId;
     var upload =
     '<p class="help">本日の残投稿可能数:<span id="rate-limit"></span>枚<br>サポートされている拡張子:JPG,JPEG,PNG,GIF,BMP</p>'+
@@ -67,8 +62,8 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
         cache: false,
       })
       .done((response) => {
-        var count = response;
-        var calc = count % 2;
+        const count = response;
+        const calc = count % 2;
         console.log('count:'+count+' calc:'+calc);
         if (calc === 0){
           clientId = 'Client-ID 822495165852723';
@@ -83,13 +78,13 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
       .always(() =>{
         console.log('Imgur ClientId:'+clientId);
         if (this.files.length > 0) {
-          var file = this.files[0];
-          var filename = file.name;
+          const file = this.files[0];
+          const filename = file.name;
           $('#file-name').text(filename);
           var reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = function() {
-            var imgdata = reader.result.split(',')[1];
+            const imgdata = reader.result.split(',')[1];
             $.ajax({
               url: 'https://api.imgur.com/3/image',
               headers: {
@@ -100,9 +95,9 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
             })
             .done((response,status,xhr) => {
               console.log(status);
-              var limit = xhr.getResponseHeader('x-post-rate-limit-remaining');
-              var link = response.data.link;
-              var value = $('#comment').val();
+              limit = xhr.getResponseHeader('x-post-rate-limit-remaining');
+              const link = response.data.link;
+              const value = $('#comment').val();
               // 結果
               $('#comment').val(value + link + '\n');
               $('#rate-limit').text(separate(limit));
@@ -114,6 +109,9 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
         }
       })
     })
+    function separate(num){
+      return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    }
   }else{
     console.log('Comment-img:OFF');
   }

@@ -5,7 +5,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
     // Imgur
     var imgur = /(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
     imgur = cB.text().match(imgur);
-    const width = cB.parent().width()+'px';
+    const width = $('.media').width() - $('.comment-img-box').width()
     if(imgur){
       $('.comment_box:contains("imgur")').addClass("has-imgur");
       for (var i=0; i<imgur.length; ++i){
@@ -44,7 +44,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
     '</div>';
     $('#comment-anchor .has-text-right').prepend(upload);
     $.get('https://api.dafu.cf/nemlog/count.txt',function(data){
-      var limit = 1250 - data;
+      var limit = 1251 - data;
       $('#rate-limit').text(separate(limit));
       if(limit <= 0){
         $('#rate-limit').css('color','red');

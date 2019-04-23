@@ -12,7 +12,7 @@
   },
   "content_scripts": [{
     "matches" : ["https://nemlog.nem.social/*"],
-    "js": ["./js/jquery.min.js","./js/read-time.min.js","./js/price.min.js","./js/toc.min.js","./js/imgur.min.js","./js/movie.min.js"],
+    "js": ["./js/jquery.min.js","./js/read-time.min.js","./js/price.min.js","./js/toc.min.js","./js/imgur.min.js","./js/movie.js"],
     "css": ["./css/toc.min.css"]
   }],
   "permissions": ["*://api.dafu.cf/*","*://api.imgur.com/*/*"],

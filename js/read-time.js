@@ -1,6 +1,7 @@
 chrome.runtime.sendMessage({method: 'getItem', key: "read-time"}, function (response) {
   if (response.data === 'on') {
     console.log('Read-time:ON');
+    $('body').css({'word-break':'break-all'});
     $(document).ready(function(){
       $(function(){//読了時間目安
         const timeout = '10000';

@@ -2,29 +2,58 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
   if (response.data === 'on') {
     console.log('Comment-img:ON')
     const cB = $('.comment_box');
+    const width = $('.media').width() - $('.comment-img-box').width()
+
+    setInterval(function(){
+      $('.comment_box').ready(function(){
+        comment2imgur();
+        comment2gyazo();
+      })
+    },1000)
+
     // Imgur
     var imgur = /(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
     imgur = cB.text().match(imgur);
-    const width = $('.media').width() - $('.comment-img-box').width()
-    if(imgur){
-      $('.comment_box:contains("imgur")').addClass("has-imgur");
-      for (var i=0; i<imgur.length; ++i){
-        //const imgurFile=imgur[i].replace(/(http(s):)\/\/i\.imgur\.com\//, "");
-        const imgurInner=imgur[i].replace(imgur[i],"<a href='"+imgur[i]+"' target='_blank'><img src='"+imgur[i]+"' alt='"+imgur[i]+"' style='display:block;max-width:"+width+"'></a>");
-        console.log('#'+i+':'+imgurInner);
-        $('.has-imgur').eq(i).append(imgurInner);
+
+    function comment2imgur(){
+      if(imgur){
+        $('.comment_box:contains(imgur)').each(function(index){
+          var tt = $(this).text()
+          if('tt:has(imgur)'){
+            if(!$(this).hasClass('has-imgur')){
+              $(this).addClass('has-imgur')
+              console.log('#imgur-'+index+':'+tt)
+              $(this).text(function(){
+                var imgur = $(this).text().match(/(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString()
+                const imgurInner = imgur.replace(imgur,"<a href='"+imgur+"' target='_blank'><img src='"+imgur+"' alt='"+imgur+"' style='display:block;max-width:"+width+"px'></a>")
+                $(this).append(imgurInner)
+              })
+            }
+          }
+        })
       }
     }
 
     // Gyazo
     var gyazo = /(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
     gyazo = cB.text().match(gyazo);
-    if(gyazo){
-      $('.comment_box:contains("gyazo")').addClass("has-gyazo");
-      for (var i=0; i<gyazo.length; ++i){
-        const gyazoInner=gyazo[i].replace(gyazo[i],"<a href='"+gyazo[i]+"' target='_blank'><img src='"+gyazo[i]+"' alt='"+gyazo[i]+"' style='display:block;max-width:"+width+"'></a>");
-        console.log('#'+i+':'+gyazoInner);
-        $('.has-gyazo').eq(i).append(gyazoInner);
+
+    function comment2gyazo(){
+      if(gyazo){
+        $('.comment_box:contains("//i.gyazo.com/")').each(function(index){
+          var tt = $(this).text()
+          if('tt:has(gyazo)'){
+            if(!$(this).hasClass('has-gyazo')){
+              $(this).addClass('has-gyazo')
+              console.log('#gyazo-'+index+':'+tt)
+              $(this).text(function(){
+                var gyazo = $(this).text().match(/(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString()
+                const gyazoInner = gyazo.replace(gyazo,"<a href='"+gyazo+"' target='_blank'><img src='"+gyazo+"' alt='"+gyazo+"' style='display:block;max-width:"+width+"px'></a>")
+                $(this).append(gyazoInner)
+              })
+            }
+          }
+        })
       }
     }
 

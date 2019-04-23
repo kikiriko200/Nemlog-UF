@@ -9,7 +9,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "price"}, function (response
       }else if($(window).width()>769){
         $('.container .column').eq(-1).prepend(widget);
       }else{
-        $('.container .column').eq(1).prepend(widget2);
+        $('.column.is-two-thirds').prepend(widget2);
       }
     })
   }else{

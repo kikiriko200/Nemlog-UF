@@ -40,14 +40,14 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
 
     function comment2gyazo(){
       if(gyazo){
-        $('.comment_box:contains("//i.gyazo.com/")').each(function(index){
-          var tt = $(this).text()
-          if('tt:has(gyazo)'){
+        $('.comment_box:contains(gyazo)').each(function(index){
+          var tt2 = $(this).text()
+          if('tt2:has(gyazo)'){
             if(!$(this).hasClass('has-gyazo')){
               $(this).addClass('has-gyazo')
-              console.log('#gyazo-'+index+':'+tt)
+              console.log('#gyazo-'+index+':'+tt2)
               $(this).text(function(){
-                var gyazo = $(this).text().match(/(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString()
+                var gyazo = tt2.match(/(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString()
                 const gyazoInner = gyazo.replace(gyazo,"<a href='"+gyazo+"' target='_blank'><img src='"+gyazo+"' alt='"+gyazo+"' style='display:block;max-width:"+width+"px'></a>")
                 $(this).append(gyazoInner)
               })

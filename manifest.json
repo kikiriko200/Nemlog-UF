@@ -4,7 +4,7 @@
   "short_name": "Nemlog-UF",
   "author": "DAFU",
   "description": "閲覧中のNemlog記事の目次を生成します。",
-  "version": "1.1",
+  "version": "1.1.1",
   "icons": {
     "16":"./icon/icon_16.png",
     "48":"./icon/icon.png",

@@ -25,7 +25,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
               console.log('#imgur-'+index+':'+tt)
               $(this).text(function(){
                 var imgur = $(this).text().match(/(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString()
-                const imgurInner = imgur.replace(imgur,"<a href='"+imgur+"' target='_blank'><img src='"+imgur+"' alt='"+imgur+"' style='display:block;max-width:"+width+"px'></a>")
+                const imgurInner = imgur.replace(imgur,"<a href='"+imgur+"' target='_blank'><img src='"+imgur+"' title='"+imgur+"' style='display:block;max-width:"+width+"px'></a>")
                 $(this).append(imgurInner)
               })
             }
@@ -48,7 +48,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
               console.log('#gyazo-'+index+':'+tt2)
               $(this).text(function(){
                 var gyazo = tt2.match(/(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString()
-                const gyazoInner = gyazo.replace(gyazo,"<a href='"+gyazo+"' target='_blank'><img src='"+gyazo+"' alt='"+gyazo+"' style='display:block;max-width:"+width+"px'></a>")
+                const gyazoInner = gyazo.replace(gyazo,"<a href='"+gyazo+"' target='_blank'><img src='"+gyazo+"' title='"+gyazo+"' style='display:block;max-width:"+width+"px'></a>")
                 $(this).append(gyazoInner)
               })
             }

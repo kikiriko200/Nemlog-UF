@@ -12,18 +12,34 @@ chrome.runtime.sendMessage({method: 'getItem', key: "toc"}, function (response) 
         div.html('<div class="card-header"><p class="card-header-title has-text-centered has-text-white nem-b" style="margin:0">'+title+':目次(´▽｀)</p></dt></div>');
         var countId = 0;
         $(".blog-body h1,.blog-body h2,.blog-body h3,.blog-body h4,.blog-body h5,.blog-body h6").each(function(){
-          countId ++;
           var ttl = $(this).text();
+          if(ttl !== '&nbsp;'){
+          countId ++;
           var lv = this.nodeName.toLowerCase();
           this.id = 'ttl-' + countId;
           div.append("<dd class='lv_"+lv+"'><a href='#"+this.id+"'>"+ttl+"</a></dd>");
-        });
+        }});
         div.append("<div class='card-footer'><p class='card-footer-item'>&copy; <a href='https://nemlog.nem.social/profile/3620'>DAFU</a></p></div>");
         if(countId <= 1){//見出しが2個ない場合表示しない
           div.css("display","none");
+        }else{
+          $("#main-container").css({
+            display:"flex",
+            margin:"0 auto",
+            "max-width": "1300px",
+            overflow: "inherit"
+          })
+          var container = $("<div></div>",{
+            addClass: "mw400"
+          })
+          $("#main-container").append(container);
         }
         if($(window).width()>769){
-          $(".stick-side").prepend(div);
+          div.css({
+            "position":"sticky",
+            "top":"75px"
+          })
+          container.append(div)
         }else{
           $(".blog-body").prepend(div);
         }

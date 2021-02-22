@@ -1,11 +1,10 @@
 chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (response) {
   if (response.data === 'on') {
     console.log('Comment-img:ON')
-    const cB = $('.comment_box');
-    const width = $('.media').width() - $('.comment-img-box').width()
+    const cB = $('p');
 
     setInterval(function(){
-      $('.comment_box').ready(function(){
+      $('.jscroll-inner').ready(function(){
         comment2imgur();
         comment2gyazo();
       })
@@ -17,18 +16,17 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
 
     function comment2imgur(){
       if(imgur){
-        $('.comment_box:contains(imgur)').each(function(index){
-          var tt = $(this).text()
-          if('tt:has(imgur)'){
-            if(!$(this).hasClass('has-imgur')){
-              $(this).addClass('has-imgur')
-              console.log('#imgur-'+index+':'+tt)
-              $(this).text(function(){
-                var imgur = $(this).text().match(/(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString()
-                const imgurInner = imgur.replace(imgur,"<a href='"+imgur+"' target='_blank'><img src='"+imgur+"' title='"+imgur+"' style='display:block;max-width:"+width+"px'></a>")
-                $(this).append(imgurInner)
-              })
-            }
+        $('p:contains(imgur)').each(function(index){
+          var tt = $(this).text();
+          if(!$(this).hasClass('has-imgur')){
+            $(this).addClass('has-imgur');
+            console.log('#imgur-'+index+':'+tt);
+            let width = $(this).parent().width();
+            $(this).text(function(){
+              var imgur = $(this).text().match(/(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString();
+              const imgurInner = imgur.replace(imgur,"<a href='"+imgur+"' target='_blank'><img src='"+imgur+"' title='"+imgur+"' style='display:block;max-width:"+width+"px'></a>");
+              $(this).append(imgurInner);
+            })
           }
         })
       }
@@ -40,18 +38,17 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
 
     function comment2gyazo(){
       if(gyazo){
-        $('.comment_box:contains(gyazo)').each(function(index){
-          var tt2 = $(this).text()
-          if('tt2:has(gyazo)'){
-            if(!$(this).hasClass('has-gyazo')){
-              $(this).addClass('has-gyazo')
-              console.log('#gyazo-'+index+':'+tt2)
-              $(this).text(function(){
-                var gyazo = tt2.match(/(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString()
-                const gyazoInner = gyazo.replace(gyazo,"<a href='"+gyazo+"' target='_blank'><img src='"+gyazo+"' title='"+gyazo+"' style='display:block;max-width:"+width+"px'></a>")
-                $(this).append(gyazoInner)
-              })
-            }
+        $('p:contains(gyazo)').each(function(index){
+          var tt2 = $(this).text();
+          if(!$(this).hasClass('has-gyazo')){
+            $(this).addClass('has-gyazo');
+            console.log('#gyazo-'+index+':'+tt2);
+            let width = $(this).parent().width();
+            $(this).text(function(){
+              var gyazo = tt2.match(/(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString();
+              const gyazoInner = gyazo.replace(gyazo,"<a href='"+gyazo+"' target='_blank'><img src='"+gyazo+"' title='"+gyazo+"' style='display:block;max-width:"+width+"px'></a>");
+              $(this).append(gyazoInner);
+            })
           }
         })
       }
@@ -61,25 +58,21 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, function (re
     var clientId;
     var upload =
     '<p class="help">本日の残投稿可能数:<span id="rate-limit"></span>枚<br>サポートされている拡張子:JPG,JPEG,PNG,GIF,BMP</p>'+
-    '<div class="file is-right is-info has-name mb20">'+
-      '<label class="file-label" for="upload-img">'+
-        '<input id="upload-img" class="file-input" name="resume" type="file" accept=".jpg,.jpeg,.png,.gif,.bmp">'+
-        '<span class="file-cta">'+
-          '<span class="file-icon"><i class="fas fa-upload"></i></span>'+
-          '<span class="file-label">ファイルを選択</span>'+
-        '</span>'+
-        '<span id="file-name" class="file-name" style="max-width: 100%;"></span>'+
+      '<div uk-form-custom="target: true" class="mb10">'+
+      '<input type="file" id="upload-img" accept=".jpg,.jpeg,.png,.gif,.bmp">'+
+      '<input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" disabled>'+
+      '<label for="upload-img">'+
+      '<button class="uk-button uk-button-primary r05 error-message"><i class="fas fa-upload"></i>ファイルを選択</button>'+
       '</label>'+
-    '</div>';
-    $('#comment-anchor .has-text-right').prepend(upload);
+    '</div><br>';
+    $('.put_comment').parent().prepend(upload);
     $.get('https://api.dafu.cf/nemlog/count.txt',function(data){
       var limit = 1251 - data;
       $('#rate-limit').text(separate(limit));
       if(limit <= 0){
         $('#rate-limit').css('color','red');
         $('#file-name').text('制限に達しました。');
-        $('span.file-label').text('投稿不可');
-        $('.file').addClass('is-danger');
+        $('.error-message').text('投稿不可');
         //$('#upload-img').prop('disabled', true);
       }
     })

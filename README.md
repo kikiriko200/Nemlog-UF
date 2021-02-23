@@ -15,10 +15,10 @@ Nemlogに様々な機能を追加します。
 
 ### Google Chrome,Opera
 
-[ストアから追加](https://chrome.google.com/webstore/detail/nemlog-toc-generator/haicahpadmemfpfmckbhignbjbhdckkj)
+[ストアから追加](https://chrome.google.com/webstore/detail/nemlog-uf/haicahpadmemfpfmckbhignbjbhdckkj)
 
 ### Firefox
-[ストアから追加](https://addons.mozilla.org/ja/firefox/addon/nemlog-toc-generator/)
+[ストアから追加](https://addons.mozilla.org/ja/firefox/addon/nemlog-uf/)
 
 ## ライセンス
 このリポジトリはMITライセンスの下で自由に利用できます。

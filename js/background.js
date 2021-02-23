@@ -17,7 +17,7 @@ console.log("PRICE:"+localStorage["price"]);
 console.log("READ-TIME:"+localStorage["read-time"]);
 console.log("COMMENT-IMG:"+localStorage["comment-img"]);
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.method === 'getItem') {
     sendResponse({
       data: localStorage.getItem(request.key)

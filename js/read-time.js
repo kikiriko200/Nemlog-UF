@@ -50,7 +50,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "read-time"},  (response) =>
       })
     })
 
-    function readTime(item){
+    const readTime = (item) => {
       $(item).each(function(){
         if(item == '.blog-card'){
           if(!$(this).hasClass('article-read-time')){
@@ -83,7 +83,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "read-time"},  (response) =>
     }
 
     // var使えばこんなめんどうなことしなくていいじゃん感 is ある
-    function getBlog(url,addTarget){
+    const getBlog = (url,addTarget) =>{
       let id = url.replace('https://nemlog.nem.social/blog/','');
       if(localStorage[id]){
         let length = localStorage[id];

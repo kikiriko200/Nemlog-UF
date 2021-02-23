@@ -1,6 +1,6 @@
-$(function(){
+$(() => {
 
-  $("#save").click(function () {
+  $("#save").click(() => {
     localStorage["toc"] = $("#toc").val();
     localStorage["read-time"] = $("#read-time").val();
     localStorage["price"] = $("#price").val();

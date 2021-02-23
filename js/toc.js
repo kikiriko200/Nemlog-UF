@@ -1,21 +1,21 @@
-chrome.runtime.sendMessage({method: 'getItem', key: "toc"}, function (response) {
+chrome.runtime.sendMessage({method: 'getItem', key: "toc"}, (response) => {
   if (response.data === 'on') {
     console.log('TOC:ON');
-    $(document).ready(function(){
+    $(document).ready(() => {
       const now = location.href;
-      if( ~now.indexOf('blog') || ~now.indexOf('adventure') ){// 目次挿入
+      if( ~now.indexOf('blog') ){// 目次挿入
         $("html").css("scroll-behavior","smooth");
-        var div = $("<div></div>", {
+        let div = $("<div></div>", {
           addClass: "card blog-toc"
         });
-        var title = $(".blog-header h1").text();
+        let title = $(".blog-header h1").text();
         div.html('<div class="card-header"><p class="card-header-title has-text-centered has-text-white nem-b" style="margin:0">'+title+':目次(´▽｀)</p></dt></div>');
-        var countId = 0;
+        let countId = 0;
         $(".blog-body h1,.blog-body h2,.blog-body h3,.blog-body h4,.blog-body h5,.blog-body h6").each(function(){
-          var ttl = $(this).text();
+          let ttl = $(this).text();
           if(ttl !== '&nbsp;'){
           countId ++;
-          var lv = this.nodeName.toLowerCase();
+          let lv = this.nodeName.toLowerCase();
           this.id = 'ttl-' + countId;
           div.append("<dd class='lv_"+lv+"'><a href='#"+this.id+"'>"+ttl+"</a></dd>");
         }});
@@ -28,20 +28,20 @@ chrome.runtime.sendMessage({method: 'getItem', key: "toc"}, function (response) 
             margin:"0 auto",
             "max-width": "1300px",
             overflow: "inherit"
-          })
-          var container = $("<div></div>",{
+          });
+          let container = $("<div></div>",{
             addClass: "mw400"
-          })
+          });
           $("#main-container").append(container);
-        }
-        if($(window).width()>769){
-          div.css({
-            "position":"sticky",
-            "top":"75px"
-          })
-          container.append(div)
-        }else{
-          $(".blog-body").prepend(div);
+          if($(window).width()>769){
+            div.css({
+              "position":"sticky",
+              "top":"10px"
+            })
+            container.append(div);
+          }else{
+            $(".blog-body").prepend(div);
+          }
         }
       };
     })

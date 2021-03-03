@@ -1,7 +1,6 @@
 chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) => {
   if (response.data === 'on') {
     console.log('Comment-img:ON')
-    const cB = $('p');
 
     setInterval(() => {
       $('.jscroll-inner').ready(() => {
@@ -12,10 +11,10 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
     },1000)
 
     // Imgur
-    var imgur = /(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
-    imgur = cB.text().match(imgur);
+    let imgurReg = /(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
 
     function comment2imgur(){
+      let imgur = $('p').text().match(imgurReg);
       if(imgur){
         $('p:contains(imgur)').each(function(index){
           let tt = $(this).text();
@@ -24,7 +23,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
             console.log('#imgur-'+index+':'+tt);
             let width = $(this).parent().width();
             $(this).text(function(){
-              let imgur = $(this).text().match(/(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString();
+              let imgur = $(this).text().match(imgurReg).toString();
               const imgurInner = imgur.replace(imgur,"<a href='"+imgur+"' target='_blank'><img src='"+imgur+"' title='"+imgur+"' style='display:block;max-width:"+width+"px'></a>");
               $(this).append(imgurInner);
             })
@@ -34,10 +33,10 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
     }
 
     // Gyazo
-    var gyazo = /(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
-    gyazo = cB.text().match(gyazo);
+    let gyazoReg = /(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
 
     function comment2gyazo(){
+      let gyazo = $('p').text().match(gyazoReg);
       if(gyazo){
         $('p:contains(gyazo)').each(function(index){
           let tt2 = $(this).text();
@@ -46,7 +45,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
             console.log('#gyazo-'+index+':'+tt2);
             let width = $(this).parent().width();
             $(this).text(function(){
-              let gyazo = tt2.match(/(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi).toString();
+              let gyazo = tt2.match(gyazoReg).toString();
               const gyazoInner = gyazo.replace(gyazo,"<a href='"+gyazo+"' target='_blank'><img src='"+gyazo+"' title='"+gyazo+"' style='display:block;max-width:"+width+"px'></a>");
               $(this).append(gyazoInner);
             })
@@ -56,10 +55,10 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
     }
 
     // Nemgraph
-    var nemgraph = /(http:|https:)\/\/nemgraph\.net\/post\/.{1,4}\/.{1,99}/gi;
-    nemgraph = cB.text().match(nemgraph);
+    var nemgraphReg = /(http:|https:)\/\/nemgraph\.net\/post\/.{1,4}\/.{1,99}/gi;
 
     function comment2nemgraph(){
+      let nemgraph = $('p').text().match(nemgraphReg);
       if(nemgraph){
         $('p:contains(nemgraph)').each(function(index){
           let tt = $(this).text()
@@ -67,7 +66,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
             $(this).addClass('has-nemgraph');
             console.log('#nemgraph-'+index+':'+tt);
             let width = $(this).parent().width();
-            let nemgraph = tt.match(/(http:|https:)\/\/nemgraph\.net\/post\/.{1,4}\/.{1,99}/gi).toString();
+            let nemgraph = tt.match(nemgraphReg).toString();
             let reqUrl = 'https://api.dafu.cf/nemlog/ajax.php?url='+nemgraph;
             $.ajax({
               url: reqUrl,

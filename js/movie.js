@@ -2,17 +2,15 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
   if (response.data === 'on') {
     console.log('Comment-Movie:ON');
     $('.pagination').css('display','block');
-    const cB = $('p');
     if($('body').width() <= 768){
       var height = 300
     }else{
       var height = 500
     };
-    // Youtube
-    let youtube = /(http:\/\/|https:\/\/)(www|m)\.youtube\.com\/watch\?v\=.{1,11}/gi;
-    let youtube2 = /(http:\/\/|https:\/\/)youtu\.be\/.{1,11}/gi;
-    youtube = cB.text().match(youtube);
-    youtube2 = cB.text().match(youtube2);
+
+    let youtubeReg = /(http:\/\/|https:\/\/)(www|m)\.youtube\.com\/watch\?v\=.{1,11}/gi;
+    let youtube2Reg = /(http:\/\/|https:\/\/)youtu\.be\/.{1,11}/gi;
+    let niconicoReg =  /http(s):\/\/(www|sp)\.nicovideo\.jp\/watch\/(sm|so).{1,64}/gi
 
     setInterval(() => {
       $('.jscroll-inner').ready(() => {
@@ -23,6 +21,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
     },1000)
 
     const comment2youtube = () => {
+      let youtube = $('p').text().match(youtubeReg);
       if(youtube){
         $('p:contains(youtube)').each(function(index){
           let tt = $(this).text();
@@ -33,10 +32,10 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
             let width = $(this).parent().width();
             $(this).text(function(){
               let you = $(this).text();
-              you = you.match(/(http:\/\/|https:\/\/)(www|m)\.youtube\.com\/watch\?v\=.{1,11}/gi).toString();
-              let yid = you.replace('https://www.youtube.com/watch?v=', '').replace('https://m.youtube.com/watch?v=', '');
+              you = you.match(youtubeReg).toString();
+              let yid = you.replace(/(http:\/\/|https:\/\/)(www|m)\.youtube\.com\/watch\?v\=/, '');
               console.log('ID'+index+':'+yid);
-              const yin = you.replace(/(http:\/\/|https:\/\/)(www|m)\.youtube\.com\/watch\?v\=.{1,11}/gi,'<iframe class="youtube-movie added" src="https://www.youtube.com/embed/'+yid+'" width="'+width+'" height="'+height+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+              const yin = you.replace(youtubeReg,'<iframe class="youtube-movie added" src="https://www.youtube.com/embed/'+yid+'" width="'+width+'" height="'+height+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
               $(this).find('.yt-frame').html(yin);
             });
           };
@@ -45,6 +44,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
     };
 
     const comment2youtube2 = () => {
+      let youtube2 = $('p').text().match(youtube2Reg);
       if(youtube2){
         $('p:contains("//youtu.be/")').each(function(index){
           let tt = $(this).text();
@@ -54,10 +54,10 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
             let width = $(this).parent().width();
             $(this).text(function(){
               let you = tt;
-              you = you.match(/(http:\/\/|https:\/\/)youtu\.be\/.{1,11}/gi).toString();
-              let yid = you.replace('https://youtu.be/', '');
-              console.log('ID'+index+':'+yid);
-              const yin = you.replace(/(http:\/\/|https:\/\/)youtu\.be\/.{1,11}/gi,'<iframe class="youtube-movie added" src="https://www.youtube.com/embed/'+yid+'" width="'+width+'" height="'+height+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+              you = you.match(youtube2Reg).toString();
+              let yid = you.replace(/(http:\/\/|https:\/\/)youtu\.be\//, '');
+              console.log('ID2-'+index+':'+yid);
+              const yin = you.replace(youtube2Reg,'<iframe class="youtube-movie added" src="https://www.youtube.com/embed/'+yid+'" width="'+width+'" height="'+height+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
               $(this).find('.yt-frame').html(yin);
             });
           };
@@ -65,11 +65,8 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
       };
     };
 
-    // TODO:Niconico
-    let niconicoReg =  /http(s):\/\/(www|sp)\.nicovideo\.jp\/watch\/(sm|so).{1,64}/gi
-    niconico = cB.text().match(niconicoReg);
-
     const comment2niconico = () => {
+      let niconico = $('p').text().match(niconicoReg);
       if(niconico){
         $('p:contains("nicovideo.jp/watch/")').each(function(index){
           let tt = $(this).text();

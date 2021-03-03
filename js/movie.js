@@ -7,11 +7,10 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
     }else{
       var height = 500
     };
-    // Youtube
+
     let youtubeReg = /(http:\/\/|https:\/\/)(www|m)\.youtube\.com\/watch\?v\=.{1,11}/gi;
     let youtube2Reg = /(http:\/\/|https:\/\/)youtu\.be\/.{1,11}/gi;
-    let youtube = $('p').text().match(youtubeReg);
-    let youtube2 = $('p').text().match(youtube2Reg);
+    let niconicoReg =  /http(s):\/\/(www|sp)\.nicovideo\.jp\/watch\/(sm|so).{1,64}/gi
 
     setInterval(() => {
       $('.jscroll-inner').ready(() => {
@@ -22,6 +21,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
     },1000)
 
     const comment2youtube = () => {
+      let youtube = $('p').text().match(youtubeReg);
       if(youtube){
         $('p:contains(youtube)').each(function(index){
           let tt = $(this).text();
@@ -44,6 +44,7 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
     };
 
     const comment2youtube2 = () => {
+      let youtube2 = $('p').text().match(youtube2Reg);
       if(youtube2){
         $('p:contains("//youtu.be/")').each(function(index){
           let tt = $(this).text();
@@ -64,11 +65,8 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
       };
     };
 
-    // TODO:Niconico
-    let niconicoReg =  /http(s):\/\/(www|sp)\.nicovideo\.jp\/watch\/(sm|so).{1,64}/gi
-    let niconico = $('p').text().match(niconicoReg);
-
     const comment2niconico = () => {
+      let niconico = $('p').text().match(niconicoReg);
       if(niconico){
         $('p:contains("nicovideo.jp/watch/")').each(function(index){
           let tt = $(this).text();

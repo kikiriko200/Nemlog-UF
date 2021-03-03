@@ -12,9 +12,9 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
 
     // Imgur
     let imgurReg = /(http:|https:)\/\/i\.imgur\.com\/.{5,7}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
-    let imgur = $('p').text().match(imgurReg);
 
     function comment2imgur(){
+      let imgur = $('p').text().match(imgurReg);
       if(imgur){
         $('p:contains(imgur)').each(function(index){
           let tt = $(this).text();
@@ -34,9 +34,9 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
 
     // Gyazo
     let gyazoReg = /(http:|https:)\/\/i\.gyazo\.com\/.{1,64}\.(JPG|JPEG|PNG|GIF|BMP)/gi;
-    let gyazo = $('p').text().match(gyazoReg);
 
     function comment2gyazo(){
+      let gyazo = $('p').text().match(gyazoReg);
       if(gyazo){
         $('p:contains(gyazo)').each(function(index){
           let tt2 = $(this).text();
@@ -56,9 +56,9 @@ chrome.runtime.sendMessage({method: 'getItem', key: "comment-img"}, (response) =
 
     // Nemgraph
     var nemgraphReg = /(http:|https:)\/\/nemgraph\.net\/post\/.{1,4}\/.{1,99}/gi;
-    let nemgraph = $('p').text().match(nemgraphReg);
 
     function comment2nemgraph(){
+      let nemgraph = $('p').text().match(nemgraphReg);
       if(nemgraph){
         $('p:contains(nemgraph)').each(function(index){
           let tt = $(this).text()

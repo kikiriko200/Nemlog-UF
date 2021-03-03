@@ -3,8 +3,8 @@
   "name": "Nemlog-UF",
   "short_name": "Nemlog-UF",
   "author": "DAFU",
-  "description": "閲覧中のNemlog記事の目次を生成します。",
-  "version": "1.0",
+  "description": "Nemlogに様々な機能を追加します。",
+  "version": "1.3",
   "icons": {
     "16":"./icon/icon_16.png",
     "48":"./icon/icon.png",
@@ -12,10 +12,9 @@
   },
   "content_scripts": [{
     "matches" : ["https://nemlog.nem.social/*"],
-    "js": ["./js/jquery.min.js","./js/read-time.min.js","./js/price.min.js","./js/toc.min.js","./js/imgur.min.js","./js/movie.min.js"],
+    "js": ["./js/jquery.min.js","./js/toc.min.js","./js/price.min.js","./js/imgur.min.js","./js/movie.min.js","./js/read-time.min.js"],
     "css": ["./css/toc.min.css"]
   }],
-  "permissions": ["*://api.dafu.cf/*","*://api.imgur.com/*/*"],
   "background": {
     "scripts":["./js/background.min.js"]
   },

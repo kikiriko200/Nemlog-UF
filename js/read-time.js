@@ -55,12 +55,12 @@ chrome.runtime.sendMessage({method: 'getItem', key: "read-time"},  (response) =>
         if(item == '.blog-card'){
           if(!$(this).hasClass('article-read-time')){
             $(this).addClass('article-read-time');
-            var blog = $(this).find('a').attr('href');
+            let blog = $(this).find('a').attr('href');
             blog = domain + blog;
-            var div = $('<div></div>', {
+            let div = $('<div></div>', {
               addClass: `article-read-time fs08 fw4 ng-tc1`
             });
-            var span = $('<span></span>', {
+            let span = $('<span></span>', {
               addClass: `pr7`
             });
             var place = $(this).find('.blog-card-img-box').find('.px10').eq(1);
@@ -82,15 +82,17 @@ chrome.runtime.sendMessage({method: 'getItem', key: "read-time"},  (response) =>
       })
     }
 
-    // var使えばこんなめんどうなことしなくていいじゃん感 is ある
     const getBlog = (url,addTarget) =>{
       let id = url.replace('https://nemlog.nem.social/blog/','');
-      if(localStorage[id]){
-        let length = localStorage[id];
+      let date = new Date();
+      let nowUnix = Math.floor(date.getTime() / 1000);
+      if(localStorage[id] && JSON.parse(localStorage[id])["expired"] > nowUnix){
+        let getdata = JSON.parse(localStorage[id]);
+        let length = getdata["length"];
         let mintime = Math.ceil(length / 500);
         let maxtime = Math.ceil(length / 1000);
         let time = maxtime+'～'+mintime;
-        console.log('(Cache)ID: '+id+' 文字数:'+localStorage[id]+'文字');
+        console.log('(Cache)ID: '+id+' 文字数:'+length+'文字');
         if (mintime === 1){
           time = '1分未満';
         }else{
@@ -106,9 +108,13 @@ chrome.runtime.sendMessage({method: 'getItem', key: "read-time"},  (response) =>
         })
         .done((data) => {
           let length = $(data).find('div.blog-body').text().length;
-          let id = url.replace('https://nemlog.nem.social/blog/','');
-          localStorage.setItem(id,length);//そのうち実装する
-          console.log('ID: '+id+' 文字数:'+localStorage[id]+'文字');
+          let expired = nowUnix + 86400;
+          let datalist = {
+            length: length,
+            expired: expired
+          }
+          localStorage.setItem(id,JSON.stringify(datalist));
+          console.log('ID: '+id+' 文字数:'+length+'文字');
           let mintime = Math.ceil(length / 500);
           let maxtime = Math.ceil(length / 1000);
           let time = maxtime+'～'+mintime;
